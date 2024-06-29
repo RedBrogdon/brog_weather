@@ -28,12 +28,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final WeatherService _service = MockWeatherService();
+  late final WeatherService _service;
+
   late final Stream<WeatherRecord> _weatherStream;
 
   @override
   void initState() {
     super.initState();
+
+    const apiKey =
+        String.fromEnvironment('API_KEY', defaultValue: 'key not found');
+    if (apiKey == 'key not found') {
+      throw 'Key not found in environment. Please add an API key.';
+    }
+
+    _service = GenerativeMockWeatherService(
+      place: 'Montgomery, Alabama',
+      timestamp: DateTime.now(),
+      apiKey: apiKey,
+    );
+
     _weatherStream = _service.weatherStream.asBroadcastStream();
   }
 
@@ -131,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (snapshot.hasData) {
             return _buildDisplay(snapshot.data!);
           } else if (snapshot.hasError) {
+            debugPrint(snapshot.error?.toString());
             return _buildError(snapshot.error);
           }
 

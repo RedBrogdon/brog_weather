@@ -36,17 +36,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    const apiKey =
-        String.fromEnvironment('API_KEY', defaultValue: 'key not found');
-    if (apiKey == 'key not found') {
-      throw 'Key not found in environment. Please add an API key.';
-    }
+    // const apiKey =
+    //     String.fromEnvironment('API_KEY', defaultValue: 'key not found');
+    // if (apiKey == 'key not found') {
+    //   throw 'Key not found in environment. Please add an API key.';
+    // }
 
-    _service = GenerativeMockWeatherService(
-      place: 'Montgomery, Alabama',
-      timestamp: DateTime.now(),
-      apiKey: apiKey,
-    );
+    _service = MockWeatherService();
 
     _weatherStream = _service.weatherStream.asBroadcastStream();
   }
@@ -55,63 +51,65 @@ class _MyHomePageState extends State<MyHomePage> {
     final valueStyle = Theme.of(context).textTheme.titleLarge!;
     final labelStyle = valueStyle.copyWith(fontWeight: FontWeight.bold);
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Temperature',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${weather.temperature}',
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Condition',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              weather.condition,
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Humidity',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${weather.humidity}',
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Wind speed',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${weather.windSpeed}',
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Description',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              weather.description,
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-          ],
+    return SizedBox.expand(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Temperature',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${weather.temperature}',
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Condition',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                weather.condition,
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Humidity',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${weather.humidity}',
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Wind speed',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${weather.windSpeed}',
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Description',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                weather.description,
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );

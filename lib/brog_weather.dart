@@ -154,30 +154,25 @@ class GenerativeMockWeatherService implements WeatherService {
   }
 
   Future<List<WeatherRecord>> _generateRecords() async {
-    int count = 0;
-    while (count < 3) {
-      try {
-        final response = await model.generateContent(
-          [Content.text(_promptCreator.prompt)],
-          safetySettings: safetySettings,
-          generationConfig: generationConfig,
-        );
+    try {
+      final response = await model.generateContent(
+        [Content.text(_promptCreator.prompt)],
+        safetySettings: safetySettings,
+        generationConfig: generationConfig,
+      );
 
-        final decoded = jsonDecode(response.text ?? '');
-        final records = <WeatherRecord>[];
-        for (final item in decoded) {
-          records.add(WeatherRecord.fromJson(item));
-        }
-
-        return records;
-      } catch (ex) {
-        print(ex.toString());
+      final decoded = jsonDecode(response.text ?? '');
+      final records = <WeatherRecord>[];
+      for (final item in decoded) {
+        records.add(WeatherRecord.fromJson(item));
       }
 
-      count++;
+      return records;
+    } catch (ex) {
+      print(ex.toString());
     }
 
-    throw 'Could not parse JSON after 3 tries';
+    throw 'Could not parse JSON!';
   }
 
   @override
@@ -258,48 +253,3 @@ Text in the description field should be in German.
 ''';
   }
 }
-
-const dummy = '''
-[
-  {
-    "timestamp": "1976-11-10T23:55:00.000Z",
-    "temperature": 18.5,
-    "humidity": 55,
-    "windSpeed": 15.0,
-    "condition": "clear",
-    "description": "Klare Nacht mit leichtem Wind."
-  },
-  {
-    "timestamp": "1976-11-11T00:55:00.000Z",
-    "temperature": 17.8,
-    "humidity": 58,
-    "windSpeed": 14.5,
-    "condition": "clear",
-    "description": "Der Himmel ist sternenklar."
-  },
-  {
-    "timestamp": "1976-11-11T01:55:00.000Z",
-    "temperature": 17.2,
-    "humidity": 62,
-    "windSpeed": 14.0,
-    "condition": "partly cloudy",
-    "description": "Ein paar Wolken ziehen über den Himmel."
-  },
-  {
-    "timestamp": "1976-11-11T02:55:00.000Z",
-    "temperature": 16.7,
-    "humidity": 65,
-    "windSpeed": 13.5,
-    "condition": "partly cloudy",
-    "description": "Es ist leicht bewölkt."
-  },
-  {
-    "timestamp": "1976-11-11T03:55:00.000Z",
-    "temperature": 16.2,
-    "humidity": 68,
-    "windSpeed": 13.0,
-    "condition": "cloudy",
-    "description": "Der Himmel ist bedeckt mit Wolken."
-  }
-]
-''';

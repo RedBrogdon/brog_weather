@@ -1,0 +1,11 @@
+file: lib/brog_weather.dart
+line: 133
+---
+
+
+↑  final generationConfig = GenerationConfig(
+    temperature: 1.0,
+    topP: 1,
+    maxOutputTokens: 65535,
+    responseMimeType: 'application/json',
+  );

@@ -1,0 +1,10 @@
+file: example/lib/main.dart
+line: 38
+---
+
+
+↑    const apiKey =
+        String.fromEnvironment('API_KEY', defaultValue: 'key not found');
+    if (apiKey == 'key not found') {
+      throw 'Key not found in environment. Please add an API key.';
+    }

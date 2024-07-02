@@ -36,12 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    // const apiKey =
-    //     String.fromEnvironment('API_KEY', defaultValue: 'key not found');
-    // if (apiKey == 'key not found') {
-    //   throw 'Key not found in environment. Please add an API key.';
-    // }
-
     _service = MockWeatherService();
 
     _weatherStream = _service.weatherStream.asBroadcastStream();

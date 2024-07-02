@@ -71,7 +71,48 @@ class LiveWeatherService {
 
 /// An offline-capable mock implementation that streams hardcoded data.
 class MockWeatherService implements WeatherService {
-  final weatherData = [];
+  final weatherData = [
+    WeatherRecord(
+      timestamp: DateTime(1976, 11, 10, 23, 55),
+      temperature: 18.5,
+      humidity: 60,
+      windSpeed: 15.2,
+      condition: 'clear',
+      description: 'Der Himmel ist klar und sternenklar.',
+    ),
+    WeatherRecord(
+      timestamp: DateTime(1976, 11, 11, 0, 55),
+      temperature: 18.0,
+      humidity: 62,
+      windSpeed: 14.8,
+      condition: 'clear',
+      description: 'Der Himmel ist wolkenlos.',
+    ),
+    WeatherRecord(
+      timestamp: DateTime(1976, 11, 11, 1, 55),
+      temperature: 17.8,
+      humidity: 64,
+      windSpeed: 14.5,
+      condition: 'clear',
+      description: 'Es gibt keine Wolken am Himmel.',
+    ),
+    WeatherRecord(
+      timestamp: DateTime(1976, 11, 11, 2, 55),
+      temperature: 17.5,
+      humidity: 66,
+      windSpeed: 14.2,
+      condition: 'clear',
+      description: 'Der Himmel ist heiter und sonnig.',
+    ),
+    WeatherRecord(
+      timestamp: DateTime(1976, 11, 11, 3, 55),
+      temperature: 17.3,
+      humidity: 68,
+      windSpeed: 13.9,
+      condition: 'clear',
+      description: 'Das Wetter ist angenehm und ruhig.',
+    ),
+  ];
 
   @override
   Stream<WeatherRecord> get weatherStream async* {

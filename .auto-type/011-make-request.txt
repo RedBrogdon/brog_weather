@@ -1,0 +1,6 @@
+file: lib/brog_weather.dart
+line: 159
+---
+      final response = await model.generateContent(
+        [Content.text(_promptCreator.prompt)],
+      );

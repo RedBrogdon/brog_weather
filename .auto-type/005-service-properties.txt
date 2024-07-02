@@ -1,0 +1,9 @@
+file: lib/brog_weather.dart
+line: 129
+---
+
+  final String apiKey;
+
+  late final GenerativeModel model;
+
+  late final PromptCreator _promptCreator;

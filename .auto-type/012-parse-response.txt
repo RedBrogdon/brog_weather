@@ -1,0 +1,12 @@
+file: lib/brog_weather.dart
+line: 162
+---
+
+
+↑      final decoded = jsonDecode(response.text ?? '');
+      final records = <WeatherRecord>[];
+      for (final item in decoded) {
+        records.add(WeatherRecord.fromJson(item));
+      }
+
+      return records;

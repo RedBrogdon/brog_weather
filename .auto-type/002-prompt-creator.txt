@@ -1,0 +1,10 @@
+file: lib/brog_weather.dart
+line: 138
+---
+
+class PromptCreator {
+  final String place;
+  final DateTime timestamp;
+
+  PromptCreator(this.place, this.timestamp);
+}

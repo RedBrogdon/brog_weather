@@ -1,0 +1,9 @@
+file: lib/brog_weather.dart
+line: 144
+---
+
+
+↑  String get formattedDate {
+    final formatter = DateFormat.yMMMMd('en_US').add_jm();
+    return formatter.format(timestamp);
+  }

@@ -1,0 +1,16 @@
+file: lib/brog_weather.dart
+line: 125
+---
+
+/// A generative AI-backed mock that streams data created on the fly.
+class GenerativeMockWeatherService implements WeatherService {
+  final weatherData = <WeatherRecord>[];
+
+  @override
+  Stream<WeatherRecord> get weatherStream async* {
+    for (final data in weatherData) {
+      yield data;
+      await Future.delayed(const Duration(seconds: 3));
+    }
+  }
+}

@@ -1,0 +1,11 @@
+file: lib/brog_weather.dart
+line: 140
+---
+
+
+↑  final safetySettings = [
+    SafetySetting(HarmCategory.harassment, HarmBlockThreshold.medium),
+    SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.medium),
+    SafetySetting(HarmCategory.sexuallyExplicit, HarmBlockThreshold.medium),
+    SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.medium),
+  ];

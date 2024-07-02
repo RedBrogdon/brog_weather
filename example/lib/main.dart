@@ -28,6 +28,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const place = 'Berlin';
+
   late final WeatherService _service;
 
   late final Stream<WeatherRecord> _weatherStream;
@@ -129,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('What\'s the Weather?'),
+        title: const Text('Weather for $place'),
       ),
       body: StreamBuilder(
         stream: _weatherStream,

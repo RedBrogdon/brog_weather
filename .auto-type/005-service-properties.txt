@@ -1,8 +1,9 @@
 file: lib/brog_weather.dart
-line: 129
+line: 128
 ---
 
-  final String apiKey;
+
+↑↑  final String apiKey;
 
   late final GenerativeModel model;
 

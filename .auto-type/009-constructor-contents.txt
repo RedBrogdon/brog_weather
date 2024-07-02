@@ -1,5 +1,5 @@
 file: lib/brog_weather.dart
 line: 153
 ---
-model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
+    model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
     _promptCreator = PromptCreator(place, timestamp);

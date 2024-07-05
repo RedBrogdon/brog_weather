@@ -1,0 +1,12 @@
+file: lib/brog_weather.dart
+line: 147
+---
+
+
+↑  GenerativeMockWeatherService({
+    required String place,
+    required DateTime timestamp,
+    required this.apiKey,
+  }) {
+    
+  }

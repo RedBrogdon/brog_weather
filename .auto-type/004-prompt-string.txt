@@ -1,0 +1,9 @@
+file: lib/brog_weather.dart
+line: 147
+---
+
+
+↑  String get prompt {
+    return '''
+''';
+  }

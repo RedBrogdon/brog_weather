@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: Colors.blue),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
       home: const MyHomePage(),
     );
   }
@@ -26,12 +28,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final WeatherService _service = MockWeatherService();
+  static const place = 'Mars';
+
+  late final WeatherService _service;
+
   late final Stream<WeatherRecord> _weatherStream;
 
   @override
   void initState() {
     super.initState();
+
+    const apiKey =
+        String.fromEnvironment('API_KEY', defaultValue: 'key not found');
+    if (apiKey == 'key not found') {
+      throw 'Key not found in environment. Please add an API key.';
+    }
+
+    _service = GenerativeMockWeatherService(
+      place: place,
+      timestamp: DateTime.now(),
+      apiKey: apiKey,
+    );
+
     _weatherStream = _service.weatherStream.asBroadcastStream();
   }
 
@@ -39,63 +57,65 @@ class _MyHomePageState extends State<MyHomePage> {
     final valueStyle = Theme.of(context).textTheme.titleLarge!;
     final labelStyle = valueStyle.copyWith(fontWeight: FontWeight.bold);
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Temperature',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${weather.temperature}',
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Condition',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              weather.condition,
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Humidity',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${weather.humidity}',
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Wind speed',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '${weather.windSpeed}',
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Description',
-              style: labelStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              weather.description,
-              style: valueStyle,
-            ),
-            const SizedBox(height: 32),
-          ],
+    return SizedBox.expand(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Temperature',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${weather.temperature}',
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Condition',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                weather.condition,
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Humidity',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${weather.humidity}',
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Wind speed',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${weather.windSpeed}',
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+              Text(
+                'Description',
+                style: labelStyle,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                weather.description,
+                style: valueStyle,
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );
@@ -121,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('What\'s the Weather?'),
+        title: const Text('Weather for $place'),
       ),
       body: StreamBuilder(
         stream: _weatherStream,
@@ -129,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (snapshot.hasData) {
             return _buildDisplay(snapshot.data!);
           } else if (snapshot.hasError) {
+            debugPrint(snapshot.error?.toString());
             return _buildError(snapshot.error);
           }
 

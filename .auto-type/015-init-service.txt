@@ -1,0 +1,10 @@
+file: example/lib/main.dart
+line: 46
+---
+
+
+↑    _service = GenerativeMockWeatherService(
+      place: place,
+      timestamp: DateTime.now(),
+      apiKey: apiKey,
+    );

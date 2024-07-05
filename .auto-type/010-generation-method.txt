@@ -1,0 +1,14 @@
+file: lib/brog_weather.dart
+line: 156
+---
+
+
+↑  Future<List<WeatherRecord>> _generateRecords() async {
+    try {
+
+    } catch (ex) {
+      print(ex.toString());
+    }
+
+    throw 'Could not parse JSON!';
+  }

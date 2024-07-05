@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const place = 'Berlin';
+  static const place = 'Mars';
 
   late final WeatherService _service;
 
@@ -38,7 +38,17 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    _service = MockWeatherService();
+    const apiKey =
+        String.fromEnvironment('API_KEY', defaultValue: 'key not found');
+    if (apiKey == 'key not found') {
+      throw 'Key not found in environment. Please add an API key.';
+    }
+
+    _service = GenerativeMockWeatherService(
+      place: place,
+      timestamp: DateTime.now(),
+      apiKey: apiKey,
+    );
 
     _weatherStream = _service.weatherStream.asBroadcastStream();
   }
